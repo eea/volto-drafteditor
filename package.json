@@ -1,0 +1,24 @@
+{
+  "name": "volto-drafteditor",
+  "version": "1.0.0",
+  "description": "Yet another integration of react-draft with Volto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eea/volto-drafteditor.git"
+  },
+  "keywords": [
+    "Plone",
+    "Volto",
+    "React"
+  ],
+  "author": "Tiberiu Ichim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eea/volto-drafteditor/issues"
+  },
+  "homepage": "https://github.com/eea/volto-drafteditor#readme"
+}
