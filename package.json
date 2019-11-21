@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/eea/volto-drafteditor/issues"
   },
-  "homepage": "https://github.com/eea/volto-drafteditor#readme"
+  "homepage": "https://github.com/eea/volto-drafteditor#readme",
+  "dependencies": {
+    "draftjs-to-html": "^0.8.4"
+  }
 }
