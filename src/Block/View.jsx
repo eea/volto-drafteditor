@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import redraft from 'redraft';
 import { settings } from '~/config';
-
-
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import draftToHtml from 'draftjs-to-html';
+import { convertToRaw } from 'draft-js';
 
 const View = ({ data }) => {
   let text = data.text;
@@ -146,7 +147,12 @@ const View = ({ data }) => {
     );
   } else {
     console.log('====', text)
-    result = redraft(text, renderers, settings.ToHTMLOptions);
+    // result = redraft(text, renderers, settings.ToHTMLOptions);
+    result =  <div
+    dangerouslySetInnerHTML={{
+      __html: draftToHtml(text),
+    }}
+  />
   }
   return text ? result : '';
 };
