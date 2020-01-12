@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import redraft from 'redraft';
-import { settings } from '~/config';
-import draftToHtml from 'draftjs-to-html';
-import { convertToRaw } from 'draft-js';
+import Loadable from 'react-loadable';
+
+const draftToHtml = Loadable({
+  loader: () => import('draftjs-to-html'),
+  loading() {
+    return <div>Loading</div>;
+  },
+});
+
 
 const View = ({ data }) => {
   let text = data.text;
   let result;
-  
-
 
   const styles = {
     code: {
@@ -25,7 +28,7 @@ const View = ({ data }) => {
       padding: 20,
     },
   };
-  
+
   // Inline (not block) styles
   const inline = {
     BOLD: (children, { key }) => <strong key={key}>{children}</strong>,
@@ -37,9 +40,9 @@ const View = ({ data }) => {
       </span>
     ),
   };
-  
+
   const addBreaklines = children => children.map(child => [child, <br />]);
-  
+
   // Returns how the default lists should be rendered
   const getList = ordered => (children, { depth, keys }) =>
     ordered ? (
@@ -58,11 +61,10 @@ const View = ({ data }) => {
 
   const getAtomic = (children, { data, keys }) =>
     data.map((item, i) => {
-      console.log('atomic', item, i, data[i])  
-      return <div key={keys[i]} {...data[i]} />
-    } 
-    );
-    // 
+      console.log('atomic', item, i, data[i]);
+      return <div key={keys[i]} {...data[i]} />;
+    });
+  //
   /**
    * Note that children can be maped to render a list or do other cool stuff
    */
@@ -105,7 +107,7 @@ const View = ({ data }) => {
         </p>
       )),
   };
-  
+
   const entities = {
     LINK: (children, entity, { key }) => (
       <a key={key} href={entity.url}>
@@ -113,26 +115,24 @@ const View = ({ data }) => {
       </a>
     ),
     IMAGE: (children, entity, { key }) => {
-        console.log(children, entity, key)
-        return (
-          <div>tralalal
-
-            <img key={key} src={entity.src} alt={entity.alt} />
-          </div>
-        )
-      }
+      console.log(children, entity, key);
+      return (
+        <div>
+          tralalal
+          <img key={key} src={entity.src} alt={entity.alt} />
+        </div>
+      );
+    },
   };
- 
-  
+
   const renderers = {
     inline,
     blocks,
     entities,
   };
 
-
   if (typeof text === 'string') {
-    console.log('isString')
+    console.log('isString');
     // TODO: need better regexp here
     text = text.replace(/(<? *script)/gi, 'illegalscript');
 
@@ -142,16 +142,17 @@ const View = ({ data }) => {
           __html: text,
         }}
       />
-
     );
   } else {
-    console.log('====', text)
+    console.log('====', text);
     // result = redraft(text, renderers, settings.ToHTMLOptions);
-    result =  <div
-    dangerouslySetInnerHTML={{
-      __html: draftToHtml(text),
-    }}
-  />
+    result = (
+      <div
+        dangerouslySetInnerHTML={{
+          __html: draftToHtml(text),
+        }}
+      />
+    );
   }
   return text ? result : '';
 };

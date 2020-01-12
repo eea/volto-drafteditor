@@ -10,14 +10,29 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import cx from 'classnames';
 import '~/../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { EditorState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
 import { isEqual } from 'lodash';
 import { createContent } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
 import { readAsDataURL } from 'promise-file-reader';
 
-import { convertFromRaw, convertToRaw } from 'draft-js';
+import Loadable from 'react-loadable';
+
+const draftjs = Loadable({
+  loader: () => import('draft-js'),
+  loading() {
+    return <div>Loading</div>;
+  },
+});
+const { convertFromRaw, convertToRaw, EditorState }  = draftjs
+
+const wysiwyg = Loadable({
+  loader: () => import('react-draft-wysiwyg'),
+  loading() {
+    return <div>Loading</div>;
+  },
+});
+const { Editor } = wysiwyg
+
 
 class Edit extends Component {
   /**
