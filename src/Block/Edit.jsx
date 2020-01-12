@@ -23,7 +23,7 @@ const draftjs = Loadable({
     return <div>Loading</div>;
   },
 });
-const { convertFromRaw, convertToRaw, EditorState }  = draftjs
+const { convertFromRaw, convertToRaw, EditorState }  = draftjs;
 
 const wysiwyg = Loadable({
   loader: () => import('react-draft-wysiwyg'),
