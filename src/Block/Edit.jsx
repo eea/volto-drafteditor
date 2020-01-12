@@ -14,25 +14,25 @@ import { isEqual } from 'lodash';
 import { createContent } from '@plone/volto/actions';
 import { getBaseUrl } from '@plone/volto/helpers';
 import { readAsDataURL } from 'promise-file-reader';
-
+import { Editor } from 'react-draft-wysiwyg';
 import Loadable from 'react-loadable';
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 
-const draftjs = Loadable({
-  loader: () => import('draft-js'),
-  loading() {
-    return <div>Loading</div>;
-  },
-});
-const { convertFromRaw, convertToRaw, EditorState }  = draftjs;
+// const draftjs = Loadable({
+//   loader: () => import('draft-js'),
+//   loading() {
+//     return <div>Loading</div>;
+//   },
+// });
+// const { convertFromRaw, convertToRaw, EditorState }  = draftjs;
 
-const wysiwyg = Loadable({
-  loader: () => import('react-draft-wysiwyg'),
-  loading() {
-    return <div>Loading</div>;
-  },
-});
-const { Editor } = wysiwyg
-
+// const wysiwyg = Loadable({
+//   loader: () => import('react-draft-wysiwyg'),
+//   loading() {
+//     return <div>Loading</div>;
+//   },
+// });
+// const { Editor } = wysiwyg
 
 class Edit extends Component {
   /**

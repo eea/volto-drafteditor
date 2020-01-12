@@ -1,14 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Loadable from 'react-loadable';
-
-const draftToHtml = Loadable({
-  loader: () => import('draftjs-to-html'),
-  loading() {
-    return <div>Loading</div>;
-  },
-});
-
+import draftToHtml from 'draftjs-to-html';
 
 const View = ({ data }) => {
   let text = data.text;
